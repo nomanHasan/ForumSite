@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Forum1._0.Models.Group>
+
+@{
+    ViewBag.Title = "All Groups";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h2>All Groups </h2>
+
+@{
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+
+            if (item == null) { continue; }
+
+            <div class="panel-body">
+                <h3>@item.Group_Name</h3>
+                <h5 class="label label-primary">@item.Group_Category</h5>
+                <small class="label label-info navbar-right">@item.Group_Created</small>
+
+                <a href="~/Group/RequestMembership?groupID=@item.Group_ID" class="btn btn-primary">Request Membership</a>
+            </div>
+        }
+    }
+}

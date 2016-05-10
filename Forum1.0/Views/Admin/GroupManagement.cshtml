@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Forum1._0.Models.Group>
+
+@{
+    ViewBag.Title = "GroupManagement";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h2>GroupManagement</h2>
+
+@{
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+
+            if (item == null) { continue; }
+
+            <div class="panel-body">
+                <a href="~/Admin/Group?groupID=@item.Group_ID">
+                    <h3>@item.Group_Name</h3>
+                    <h5 class="label label-primary">@item.Group_Category</h5>
+                    <small class="label label-info navbar-right">@item.Group_Created</small>
+                </a>
+            </div>
+
+        }
+    }
+}

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Forum1._0.Models.Comment>
+@using Forum1._0.Models
+@using Forum1._0.Models.Repository
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<div class="jumbotron">
+    <h2 class="glyphicon-header">
+        @ViewBag.ThreadTitle
+    </h2>
+
+    <div class="label label-info">
+        <span class="glyphicon glyphicon-pencil"> </span>
+        <i>by @ViewBag.ThreadAuthor  ..... on @ViewBag.ThreadCreated</i>
+    </div>
+    <div class="glyphicon-inbox">
+        <p>
+            @ViewBag.ThreadDesc
+        </p>
+    </div>
+</div>
+
+<div class="panel-group">
+
+    @foreach (var item in Model)
+    {
+        if (item == null) { continue; }
+
+        User currentUser = UserRepository.getUser(item.Username);
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <a href="~/User/Timeline?username=@currentUser.Username">
+                    <b style="color:black">
+                        @currentUser.Name
+                    </b>
+                </a>
+            </div>
+            <div class="panel-body">
+                @Html.DisplayFor(modelItem => item.Comment_Content)
+            </div>
+            <div class="panel-footer">
+                
+
+                <a href="~/Comment/Like?commentID=@item.Comment_ID&threadID=@item.Thread_ID">
+                    <div class="btn btn-success">
+                        <span class="glyphicon glyphicon-thumbs-up"> Like</span>
+                    </div>
+                </a>
+                .....
+                <a href="~/Comment/Dislike?commentID=@item.Comment_ID&threadID=@item.Thread_ID">
+                    <div class="btn btn-success">
+                        <span class="glyphicon glyphicon-thumbs-down"> Dislike</span>
+                    </div>
+                </a>
+                .....
+                <div class="label label-success">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                     @Html.DisplayFor(modelItem => item.Like_Count) 
+                </div>
+                .....
+                <div class="label label-danger"> 
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                    @Html.DisplayFor(modelItem => item.Dislike_Count) 
+                </div>
+
+                <i class="text-right navbar-right"> @Html.DisplayFor(modelItem => item.Comment_Created) </i>
+            </div>
+        </div>
+    }s
+</div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Create a Comment
+        </div>
+        <div class="panel-body">
+            <form action="/Comment/Create" class="form-horizontal input-group-lg" id="comment_form" method="post">
+
+                <div class="form-group">
+                    <textarea name="comment_content" class="form-control" style=" margin: 0px 0px 0px 0px ; " form="comment_form"></textarea> <br />
+                    <input type="hidden" name="threadID" value="@ViewBag.Thread.Thread_ID" />
+                    <input type="submit" name="Comment" value="Comment" class="btn btn-success" form="comment_form" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+

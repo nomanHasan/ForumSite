@@ -1,0 +1,99 @@
+﻿@model Forum1._0.Models.Group
+@using Forum1._0.Models
+
+@{
+    ViewBag.Title = "Group";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h2>Group</h2>
+
+<div>
+    <h4>Group</h4>
+    <hr />
+    <table class="table table-responsive">
+        <tr>
+            <td>Name </td>
+            <td> @Model.Group_Name</td>
+        </tr>
+        <tr>
+            <td>Category : </td>
+            <td> @Model.Group_Category</td>
+        </tr>
+        <tr>
+            <td>Created On : </td>
+            <td> @Model.Group_Created</td>
+        </tr>
+        <tr>
+            <td>Created BY</td>
+            <td> @Model.Creator.Name</td>
+        </tr>
+    </table>
+
+</div>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <td>
+                User Name
+            </td>
+            <td>
+                Options
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (User user in ViewBag.Admins)
+        {
+            if (user == null) { continue; }
+            <tr>
+                <td>
+                    @user.Name
+                </td>
+                <td>
+                    <a href="/Admin/DemoteAdmin?groupID=@ViewBag.GroupID&username=@user.Username" class="btn btn-danger">Demote Admin</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>
+                User Name
+            </td>
+            <td>
+                Promotion
+            </td>
+            <td>
+                Membership
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (User user in ViewBag.Members)
+        {
+            if (user == null) { continue; }
+            <tr>
+                <td>
+                    @user.Name
+                </td>
+                <td>
+                    <a href="/Admin/PromoteToAdmin?groupID=@ViewBag.GroupID&username=@user.Username" class="btn btn-success">Promote Member</a>
+                </td>
+                <td>
+                    <a href="/Admin/CancelMembeship?groupID=@ViewBag.GroupID&username=@user.Username" class="btn btn-danger">Cancel Membership</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+

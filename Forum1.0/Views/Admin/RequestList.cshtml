@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Forum1._0.Models.Request>
+
+@{
+    ViewBag.Title = "RequestList";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h2>RequestList</h2>
+
+
+@foreach (var item in Model) {
+    if (item == null) { continue; }
+
+<div class="panel panel-body">
+    <h5>@item.User.Name Requested to Join to the Group - @item.Group.Group_Name</h5>
+    <div class="text-center">
+        <a href="~/Admin/RequestAccept?username=@item.Username&groupID=@item.GroupID" class="btn btn-success">Accept</a>
+        <a href="~/Admin/RequestDeny?username=@item.Username&groupID=@item.GroupID" class="btn btn-danger">Deny</a>
+    </div>
+</div>
+}
+

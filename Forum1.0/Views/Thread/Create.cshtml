@@ -1,0 +1,33 @@
+﻿@model Forum1._0.Models.Thread
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h2>Create new Thread</h2>
+
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        Create a Comment
+    </div>
+    <div class="panel-body">
+        <form action="/Thread/Create" class="form-horizontal input-group-lg" id="comment_form" method="post">
+
+            <div class="form-group">
+                <label>Thread Title </label> &nbsp;
+                <input type="text" name="thread_title" class="form-control" />
+                <label>Thread Desc </label> &nbsp;
+                <textarea name="thread_desc" class="form-control" style="margin: 0px 0px 0px 0px" form="comment_form"></textarea> <br />
+                <input type="hidden" name="groupID" value="@ViewBag.GroupID" />
+                <input type="submit" name="Comment" value="Comment" class="btn btn-success" form="comment_form" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

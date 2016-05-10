@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Forum1._0.Models.Thread>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h2>Threads List</h2>
+
+
+@foreach (var item in Model) {
+
+
+    if (item == null) { continue; }
+
+    <a href="~/Comment/Index?threadID=@item.Thread_ID">
+        
+        <div class="panel panel-default">
+            <div  class="panel-body">
+                <h3>@item.Thread_Title</h3> 
+                <h4>
+                    <small class="label label-info navbar-right"> on @item.Thread_Created</small>
+                    <i class="label label-primary navbar-right"> By @item.User.Name </i>
+                </h4>
+            </div>
+        </div>
+    </a>
+
+}
+
+<a href="~/Thread/Create?groupID=@ViewBag.GroupID" class="btn btn-success">Create a new Thread</a>
+

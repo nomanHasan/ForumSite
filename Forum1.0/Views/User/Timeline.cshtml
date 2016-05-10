@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Forum1._0.Models.Status>
+@using Forum1._0.Models
+@{
+    ViewBag.Title = "Timeline";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h2>Timeline</h2>
+
+@foreach (Status status in Model) {
+    if (status == null) { continue; }
+
+    <div class="panel panel-primary">
+        <span class="glyphicon-comment">
+
+        </span>
+
+        <div class="panel-body">
+            <b>@status.Content</b>
+        </div>
+        <div class="panel panel-footer">
+            <i>@status.Status_Created</i>
+        </div>
+    </div>
+}
+
+@if (ViewBag.User.Username != ViewBag.CurrentUser.Username)
+{
+    <div class="panel panel-success form-group" style="width:100%">
+        <div class="panel-heading">
+            Send A Message
+        </div>
+        <div class="panel-body">
+            <form action="/User/SendMessage" class="form-horizontal" id="message_form" method="post">
+
+                <div class="">
+                    <textarea name="message_content" class="form-control" cols="10" style="width:100%; margin:0; padding:100px; border-width:0" form="message_form"></textarea> <br />
+                    <input type="hidden" name="reciever" value="@ViewBag.User.Username" />
+                    <input type="hidden" name="sender" value="@ViewBag.CurrentUser.Username" />
+                    <input type="submit" name="Comment" value="Send A Message" class="btn btn-success" form="message_form" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Post your Status
+        </div>
+        <div class="panel-body" >
+            <form action="/User/PostStatus" class="form-horizontal" id="status_form" method="post">
+
+                <div class="">
+                    <textarea name="status_content" class="form-control" style="width:100%" form="status_form"></textarea> <br />
+                    <input type="submit" name="PostStatus" value="Send A Message" class="btn btn-success" form="status_form" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
